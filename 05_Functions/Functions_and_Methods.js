@@ -658,6 +658,161 @@ console.log(Out);
 // It returns an empty array, not undefined.
 
 
+// reduce() :  
+// If forEach() means "do something for every element" and 
+// filter() means "select some elements", then:
+ // reduce() means "take all the elements and combine them into one final result."
+
+// 1. Basic Example — Sum of Numbers
+let h = [10,20,30,40];
+// we want 10+20+30+40 = 100
+let Resu = h.reduce((sum, num) => {
+    return sum + num;
+}, 0); // 0 is the initial value of sum
+console.log(Resu);
+// o/p : 100
+
+// Understand the Syntax :
+// array.reduce((accumulator, currentValue) => {
+    // logic
+// }, initialValue);
+
+// There are two important variables:
+// sum → Accumulator 
+// It stores the result accumulated so far.
+// num -> Current Value
+// The current element being processed in the array.
+// 0 -> Initial Value
+// The starting value for the accumulator. If not provided, the first element of the array is used as initial value and the iteration atarts from the second element.
+
+// Finding the Product :
+let arr1 = [2,3,4,5];
+let product = arr1.reduce((product, num) => {
+    return product * num;
+}, 1);
+console.log(product);
+// o/p : 120
+
+// Finding Maximum Number :
+let arr2 = [10,45,23,78,32];
+let max = arr2.reduce((largest, num) => {
+    if (num > largest) {
+        return num;
+    }
+    return largest;
+}, arr2[0]);
+console.log(max);
+// o/p : 78
+
+// LOGIC : At every step :- "Is the current no. bigger than the largest no. I have seen so far?"
+// If YES -> update largest to current no.
+// If NO -> keep largest as it is.
+
+// Finding Minimum No.
+let arr3 = [10,45,23,78,32];
+let min = arr3.reduce((smallest, num) => {
+    if (num < smallest) {
+        return num;
+    }
+    return smallest;
+}, arr3[0]);
+console.log(min);
+// o/p : 10
+
+// Counting Elements :
+let arr4 = [1,2,3,4,5];
+let count = arr4.reduce((total, num) => {
+    return total + 1;
+}, 0);
+console.log(count);
+// o/p : 5
+
+// Count Even Numbers :
+let arr5 = [1,2,3,4,5,6];
+let evenCount = arr5.reduce((count, num) => {
+    if(num % 2 === 0) {
+        return count + 1;
+    }
+    return count;
+}, 0);
+console.log(evenCount);
+// 0/p : 3
+
+// reduce() Can Return an Object : 
+let arr6 = ["apple", "banana", "apple", "orange", "banana"];
+let fruitCount = arr6.reduce((result, fruit) => {
+    result[fruit] = (result[fruit] || 0) + 1;
+    return result;
+}, {});
+console.log(fruitCount);
+// o/p : { apple: 2, banana: 2, orange: 1}
+
+// reduce() with Objects :
+let stu1 = [
+    { name: "Gunjan", marks: 90},
+    { name: "Rahul", marks: 80},
+    { name: "Ananya", marks: 95}
+];
+let totalMarks = stu1.reduce((total, student) => {
+    return total + student.marks;
+}, 0);
+console.log(totalMarks);
+// o/p : 265
+
+// reduce() vs map() vs filter() : 
+// This is the most important comparison.
+let arr7 = [1,2,3,4,5];
+// forEach() -> do something for every element
+arr7.forEach(num => {
+    console.log(num);
+});
+// Result : 1,2,3,4,5 
+// No useful returned array
+
+let arr8 = [1,2,3,4,5];
+// map() -> transform every element and create a new array
+let transformed = arr8.map(num => num * 2);
+console.log(transformed);
+// Result : [2,4,6,8,10]
+
+let arr9 = [1,2,3,4,5];
+// filter() -> select some elements and create a new array
+let filtered = arr9.filter(num => num > 3);
+console.log(filtered);
+// Result : [4,5]
+
+let arr10 = [1,2,3,4,5];
+// reduce() -> combine all elements into a single value.
+let Sum = arr10.reduce((sum, num) => {
+    return sum + num;
+}, 0);
+console.log(Sum);
+// Result : 15
+
+// Remember this:
+// for Each -> do something for every element
+// map -> transform every element and create a new array
+// filter -> select some elements and create a new array
+// reduce -> combine all elements into a single value
+
+// Method Chaining with filter() + reduce() :
+let arr11 = [1,2,3,4,5,6];
+// we want the sum of even no.
+let evenNumbers = arr11.filter(num => num % 2 === 0);
+// Then reduce the filtered array to get the sum 
+let sumOfEven = evenNumbers.reduce((sum, num) => {
+    return sum + num;
+}, 0);
+console.log(sumOfEven);
+// o/p : 12
+// We can also chain them together:
+let sumOfEvenChained = arr11.filter(num => num % 2 === 0)
+.reduce((sum, num) => sum + num, 0);
+console.log(sumOfEvenChained);
+// o/p: 12
+
+
+
 
 
 
