@@ -1,0 +1,473 @@
+// # EVENTS In JS :
+
+// -> The change in the state of an obj. is known as an EVENT.
+// -> EVENTS are fired to notify code of "INTRESTING CHANGES" that may affect code execution.
+// Mouse events(click, double-click, etc)
+// Keyboard events(keypress, keyup, keydown)
+// Form events(sumit, etc)
+// Print events & many more
+
+// Until now, we've used JavaScript to change the webpage.
+// Now we make the webpage respond to the user.
+
+// For ex:
+// User clicks a button → change text
+// User types → update something
+// User submits a form → validate it
+// User moves the mouse → change styling
+
+// These actions are called EVENTS.
+
+// 1. What is an EVENT?
+// -> An event is something that happens in the webpage.
+
+// click       → user clicks something
+// input       → user types in an input
+// change      → input value changes
+// submit      → form is submitted
+// mouseover   → mouse moves over an element
+// keydown     → keyboard key is pressed
+
+// -> Event = something that happens
+
+
+// 2. addEventListener()
+
+// -> addEventListener() tells JavaScript: 
+// -> "When this event happens, execute this function."
+
+// SYNTAX :
+// node.addEventListener(event, callback)
+// callback is also known as Event Handler , it is used to execute func. inside an event
+element.addEventListener("event", function() {
+    // code to execute
+});
+
+// There are three important parts:
+// element
+//    ↓
+// addEventListener
+//    ↓
+// event + function
+
+
+// 3. Simple click example :
+
+// <button id="btn">Click Me</button>
+
+let button = document.querySelector("#btn"); // We select the button
+
+button.addEventListener("click", function() { // We're telling JavaScript: "Watch this button. If someone clicks it, run this function."
+    console.log("Button Clicked"); // runs only when the button is clicked.
+});
+
+
+// 4. Very important: The function isn't called immediately
+
+// Look at :
+button.addEventListener("click", function() {
+    console.log("Button Clicked");
+});
+
+// We do not write:
+// function();
+
+// -> Instead, we're giving the function to the event listener.
+
+// Page loads
+//     ↓
+// Nothing happens
+
+// User clicks button
+//     ↓
+// "click" event occurs
+//     ↓
+// function runs
+//     ↓
+// "Button clicked!" printed
+
+
+// 5. Practical DOM example :
+
+// <h1 id="heading">Hello</h1>
+// <button id="btn">Change Text</button>
+
+let heading = document.querySelector("#heading");
+let button = document.querySelector("#btn");
+
+button.addEventListener("click", function() {
+    heading.textContent = "Welcome to JS!";
+});
+
+// Initially: 
+// Hello
+// [Change Text]
+
+// After Clicking:
+// Welcome to JavaScript!
+// [Change Text]
+
+// -> So now we're combining concepts you've already learned:
+// querySelector()
+//       ↓
+// addEventListener()
+//       ↓
+//     click
+//       ↓
+//  textContent
+
+// -> 🔥 This is the point where DOM manipulation becomes interactive.
+
+// 🧠 Remember this pattern :
+
+element.addEventListener("event", function() {
+    // what should happen
+});
+
+// For a button:
+button.addEventListener("click", function() {
+    // action
+});
+
+
+
+// # Your turn 🧪 :
+
+// Given :
+// <p id="message">Original Text</p>
+// <button id="btn">Click Me</button>
+
+// Write JavaScript so that when the user clicks the button, the paragraph changes to:
+// "I clicked the button!"
+
+let paragraph = document.querySelector("#message");
+let button = document.querySelector("#btn");
+
+button.addEventListener("click", function() {
+    paragraph.textContent = "I clicked the button!";
+});
+
+
+
+// # The Event Object in JavaScript :
+
+// -> The event object contains information about an event that occurred,
+//  such as which element triggered it and what type of event happened.
+
+// 1. What is the event object?
+// -> Whenever an event occurs, JavaScript can automatically provide an object containing details about that event.
+
+// -> We usually receive it as a parameter named event or e.
+button.addEventListener("click", function(event) {
+    console.log(event);
+});
+
+// Here:
+// -> "click" is the event we're listening for.
+// -> function(event) receives information about the event.
+// -> console.log(event) displays that information in the console.
+
+// event is just a parameter name; you can also call it e.
+button.addEventListener("click", function(e) {
+    console.log(e);
+});
+// Both versions work the same way.
+
+
+// 2. event.type :
+// -> The type property tells us which event occurred.
+
+// <button id="btn">Click Me</button>
+
+let button = document.querySelector("#btn");
+
+button.addEventListener("click", function(event) {
+    console.log(event.type);
+});
+// When you click the button, the console displays:
+// Console output
+// click
+// -> Other event types include input, change, submit, and keydown.
+
+ 
+// 3. event.target :
+// -> event.target tells us which element triggered the event.
+
+// <div id="container">
+//    <button id="btn">Click Me</button>
+// </div>
+
+let container = document.querySelector("#container");
+
+container.addEventListener("click", function(event) {
+    console.log(event.target);
+});
+// -> If you click the button, event.target refers to the button element,
+//  even though the event listener is attached to the container.
+
+// -> Illustration: clicking the button triggers the listener on its parent container,
+//  and the target is the button.
+
+
+// 4. event.currentTarget :
+// -> This property tells us which element the event listener is attached to.
+
+container.addEventListener("click", function(event) {
+    console.log(event.target);
+    console.log(event.currentTarget);
+});
+
+// If you click the button inside the container:
+// -> event.target → the button
+// -> event.currentTarget → the container
+
+// 1. event.type => Type of event, ex: "click"
+// 2. event.target => Element that triggered the event
+// 3. event.currentTarget => Element whose listener is currently running
+
+
+// 5. Using the event object in a practical example :
+
+// -> Suppose you have multiple buttons and want to identify which one was clicked.
+
+// <button class="choice">Apple</button>
+// <button class="choice">Mango</button>
+// <button class="choice">Banana</button>
+
+let buttons = document.querySelector(".choice");
+
+buttons.forEach(function(button) {
+    button.addEventListener("click", function(event) {
+        console.log(event.target.textContent);
+    });
+});
+
+// When you click Mango, the console displays: Mango
+// -> This works because event.target identifies the clicked button, 
+// and textContent reads its text.
+
+
+
+// 6. event.preventDefault() :
+
+// -> Another useful event method is preventDefault().
+// -> It prevents the browser's default action for an event.
+
+// For example, clicking a link normally navigates to another page.
+
+// <a href="https://example.com" id="myLink">Visit website</a>
+
+let link = document.querySelector("#myLink");
+
+link.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("Navigation Prevented!");
+});
+
+// -> The link's default navigation is prevented, and the message is printed instead.
+// -> This is especially useful with forms, where you may want to validate input before allowing submission.
+
+
+// # Practice questions 🧪 :
+
+// <div id="parent">
+//     <button id="child">Click Me</button>
+// </div>
+
+// A. Write JavaScript to attach a click event listener to parent and print the event type.
+// B. Inside that listener, print the element that triggered the event using event.target.
+
+let parent = document.querySelector("#parent");
+let button = document.querySelector("#child");
+parent.addEventListener("click", function(event) {
+    console.log(event.type);
+    console.log(event.target);
+    console.log(event.currentTarget);
+});
+
+// C. What will event.currentTarget refer to when you click the button?
+// => parent
+
+// D. What is the difference between event.target and event.currentTarget?
+// => event.target = The element where the event originated 
+// gives the element that actually triggers the event.
+// => event.currentTarget = The element whose listener is currently executing
+// refers to the element on which the currently executing event listener is registered.
+// It may be the parent, but it doesn't have to be.
+
+
+
+// # arrow function (=>) with addEventListener().
+
+// Example: Change paragraph text on button click
+
+// <p id="message">Hello!</p>
+// <button id="btn">Click Me</button>
+
+let paragraph1 = document.querySelector("#message");
+let button1 = document.querySelector("#btn");
+
+button1.addEventListener("click", () => {
+    paragraph.textContent = "Welcome!";
+});
+
+// () => {} is the arrow function, which acts as the event handler.
+// "click" specifies the event to listen for.
+// When the button is clicked, the arrow function executes.
+// textContent changes the paragraph's text.
+
+
+// Another example: Arrow function with the event object
+
+button1.addEventListener("click", (event) => (
+    console.log(event.target);
+    console.log(event.target);
+));
+
+// Here, event receives the event object, just as it does in a regular function.
+
+// => Remember both syntaxes:
+
+// Regular function:
+button.addEventListener("click", function(event) {
+    console.log(event.type);
+});
+
+// Arrow function:
+button.addEventListener("click", (event) => {
+    console.log(event.type);
+});
+// Arrow functions provide a shorter syntax.
+
+
+// # Keyboard Events in JavaScript :
+
+// -> Keyboard events allow JavaScript to respond when a user presses or releases a key.
+// ex:
+// Press Enter to submit a form.
+// Press Escape to close a menu.
+// Press a key in a text box to detect what the user typed.
+// Use arrow keys to control a game.
+
+// => Three important keyboard events:
+
+// keydown = Fires when a key is pressed down
+// keyup = Fires when a key is released
+// keypress = Legacy event; avoid using it in new code
+
+// 1. keydown event
+// -> keydown occurs when the user presses a key.
+
+// <input id="username" placeholder="Type something">
+
+let input = document.querySelector("#username");
+
+input.addEventListener("keydown", function(event) {
+    console.log("key pressed!");
+});
+
+// -> When you press a key while the input is focused, the message appears in the console.
+
+
+// 2. event.key
+// -> The event.key property tells us which key was pressed.
+
+input.addEventListener("keydown", function(event) {
+    console.log(event.key);
+});
+
+// ex:
+//  USER PRESSES               event.key
+//      A                   "a" or "A" depending on Shift
+//  Enter                   "Enter"
+//  Space                    " "
+//  Escape                   "Escape"
+//  Arrow Up                 "ArrowUp"
+//  Backspace                "Backspace"
+
+// -> For letter keys, the value reflects the character produced, including Shift or keyboard layout.
+
+
+// 3. Detecting a specific key :
+
+// -> let's detect when the user presses Enter.
+
+let input = document.querySelector("#username");
+
+input.addEventListener("keydown", function(event) {
+    if(event.key === "Enter") {
+        console.log("Enter key is pressed!")
+    }
+});
+
+// How it works:
+// The user presses a key inside the input.
+// The keydown event fires.
+// event.key identifies the key.
+// The if condition checks whether it is "Enter".
+// If true, the message is printed.
+
+
+// 4. keyup event :
+
+// -> keyup fires when the user releases a key.
+
+input.addEventListener("keyup", function(event) {
+    console.log("Released:", event.key);
+});
+
+// For example, if you press and release A:
+// keydown → "a"
+// keyup   → "a"
+
+// => The keydown event occurs on pressing; keyup occurs on releasing.
+
+
+// 5. A practical example: Detect Escape :
+
+document.addEventListener("keydown", function(event) {
+    if(event.key === "Escape") {
+        console.log("Escape pressed!");
+    }
+});
+
+// -> Here, the listener is "attached to document",
+// so it can detect Escape presses "across the page", provided the page has keyboard focus.
+
+
+// # 🧠 Key concepts
+
+// keydown → key pressed
+// keyup → key released
+// event.key → identifies the key
+// event.key === "Enter" → checks for Enter
+// document.addEventListener(...) → listens at the document level
+
+
+// # 🧪 Your turn :
+
+// <input id="name" placeholder="Enter your name">
+
+// Write JavaScript to:
+// Select the input using querySelector().
+// Attach a keydown event listener.
+// Check whether the pressed key is "Enter".
+// If Enter is pressed, print "Form submitted!" in the console.
+// Bonus: Add an else condition that prints the key the user pressed.
+
+let input = document.querySelector("#name");
+input.addEventListener("keydown", function(event) {
+    if(event.key === "Enter") {
+        console.log("Form submitted!");
+    }
+    else {
+        console.log(event.key);
+    }
+});
+
+// NOTE : 
+// Your code prints "Form submitted!" when Enter is pressed,
+// but it doesn't actually submit a form.
+// To submit a real form, you would use a form's submit event or call its submission method after appropriate validation.
+
+

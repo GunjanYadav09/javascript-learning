@@ -292,4 +292,3 @@ container.appendChild(paragraph);
 // ✅ Both add the paragraph.
 
 // REMEMBER : appendChild() is specifically used to add a DOM element/node as a child of another element.
-

@@ -1,0 +1,98 @@
+// 1. Using events directly in HTML (Inline Events) :
+
+// -> You can write an event attribute directly inside an HTML tag,
+//  such as onclick, oninput, onkeydown, or onsubmit.
+
+<button onclick="alert('Button Clicked!')">
+    Click Me
+</button>
+
+// -> When the user clicks the button, the browser displays an alert.
+
+// # Common HTML event attributes :
+
+// 1. onclick = when an element is clicked
+// 2. ondblclick = when an element is double-clicked
+// 3. onmouseover = when the mouse moves over an elem
+// 4. onmouseout = When the mouse leaves an element
+// 5. onkeydown = When a key is pressed
+// 6. onkeyup = When a key is released
+// 7. oninput = When an input's value changes as the user types
+// 8. onchange = When a value is changed and committed
+// 9. onsubmit = When a form is submitted
+// 10. onfocus = When an element receives focus
+// 11. onblur = When an element loses focus
+
+
+// 2. HTML event example :
+
+// -> Suppose you want to change a paragraph when a button is clicked.
+
+<p id="message">Hello!</p>
+
+<button onclick="changeText()">
+    Click Me
+</button>
+
+<script>
+    function changeText() {
+        document.querySelector("#message").textContent = 
+        "Welcome to JS!"
+    }
+</script>
+
+// -> Here, onclick="changeText()"
+// calls the JavaScript function named changeText() when the button is clicked.
+
+
+// 3. Using keyboard events in HTML :
+
+// -> You can also write keyboard events directly in HTML.
+
+<input type="text"
+onkeydown="checkKey(event)"
+placeholder="Press Enter"
+/>
+
+<script>
+    function checkKey(event) {
+        if(event.key==="Enter") {
+            console.log("Enter key pressed!");
+        }
+    }
+</script>
+
+// NOTE -> we pass event into the function. 
+// This gives the function access to information about the keyboard event, including event.key.
+
+
+// 4. Inline HTML events vs addEventListener() :
+
+// -> Both approaches work, but they differ in how event handlers are organized.
+
+// # Inline HTML event : 
+// => Written in the HTML tag
+// => Example: onclick="doSomething()"
+// => Can mix HTML with JavaScript behavior
+// => Assigning another inline handler replaces the previous attribute handler
+// => Convenient for tiny demonstrations
+
+// # addEventListener() :
+// => Written in JavaScript
+// => Example: button.addEventListener("click", doSomething)
+// => Keeps behavior separate from HTML
+// => Can register multiple listeners for the same event
+// => Generally preferred for maintainable applications
+
+
+
+// 5. Arrow function with an inline HTML event.
+
+// -> You can also write an inline event with an arrow-function expression directly inside the attribute:
+
+<button onclick="(() => alert('Hello!'))()">
+    Click Me
+</button>
+
+// Here, (() => alert('Hello!'))() defines and immediately invokes an arrow function.
+
