@@ -471,3 +471,58 @@ input.addEventListener("keydown", function(event) {
 // To submit a real form, you would use a form's submit event or call its submission method after appropriate validation.
 
 
+// # Example Changging Dark mode to Light mode and vice versa 
+
+// Making a toggle in HTML:
+// <button id="mode">Change mode</button>
+
+let modebtn = document.querySelector("#mode");
+
+let currMode = "light"; //dark
+
+modebtn.addEventListener("click", () => {
+    if(currMode === "light") {
+        currMode = "dark";
+        document.querySelector("body").style.backgroundColor = "black";
+    }
+    else {
+        currMode = "light";
+        document.querySelector("body").style.backgroundColor = "white";
+    }
+
+    console.log(currMode);
+});
+
+
+// Method 2 : By using classList 
+
+// we will create two diff classes in CSS :
+
+// .dark {
+//      background-color: black;
+//      color: white;
+//    }
+
+// .light {
+//    backgrond-color: white;
+//    color: black;
+//  }
+
+let modebtn = document.querySelector("#mode");
+
+let body = document.querySelector("body");
+
+let currMode = "light"; //dark
+
+modebtn.addEventListener("click", () => {
+    if(currMode === "light") {
+        currMode = "dark";
+        body.classList.add("dark");
+    }
+    else {
+        currMode = "light";
+        body.classList.add("light");
+    }
+    console.log(currMode);
+})
+
